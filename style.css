@@ -2030,6 +2030,10 @@ footer {
 /* --------------------------------------------------------------------------
    Dedicated 1-Page Official Tax Invoice & Receipt
    -------------------------------------------------------------------------- */
+#receiptModalBackdrop {
+  z-index: 300 !important;
+}
+
 .receipt-modal-container {
   background: #f4efe6;
   border-radius: var(--radius-lg);

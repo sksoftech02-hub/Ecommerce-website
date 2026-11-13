@@ -558,36 +558,81 @@ function displayOrderSuccess(order) {
 }
 
 // 9b. Dedicated Official 1-Page Tax Invoice & Receipt
+function handleViewReceipt() {
+  let order = currentViewedOrder;
+  if (!order && placedOrders && placedOrders.length > 0) {
+    order = placedOrders[0];
+  }
+  if (!order) {
+    try {
+      const savedOrders = localStorage.getItem("furnishgo_placed_orders");
+      if (savedOrders) {
+        const parsed = JSON.parse(savedOrders);
+        if (parsed && parsed.length > 0) order = parsed[0];
+      }
+    } catch(e) {}
+  }
+  if (!order) {
+    order = {
+      orderId: "#FG-" + Math.floor(10000 + Math.random() * 90000),
+      date: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }),
+      time: new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" }),
+      estDelivery: "3-4 Business Days",
+      customer: {
+        name: "Demo Customer",
+        phone: "9876543210",
+        address: "FurnishGo Retail Showcase Store, MG Road",
+        city: "Bengaluru",
+        pin: "560001",
+        email: "demo@furnishgo.com"
+      },
+      paymentMethod: "Cash on Delivery (COD)",
+      items: [
+        { name: "Trident Sanskriti All-Season AC Comforter", category: "comforters", price: 3400, qty: 1 },
+        { name: "Trident Plush Hand & Bath Towels Set", category: "towels", price: 269, qty: 2 }
+      ],
+      total: 3938,
+      status: "In Transit",
+      courier: "BlueDart Express",
+      trackingNumber: "BD88942019IN"
+    };
+  }
+  currentViewedOrder = order;
+  populateAndShowReceipt(order);
+}
+window.handleViewReceipt = handleViewReceipt;
+
 function populateAndShowReceipt(order) {
   if (!order) return;
   currentViewedOrder = order;
 
-  const invoiceNo = "INV-2026-" + order.orderId.replace(/[^0-9]/g, "");
+  const invoiceNo = "INV-2026-" + (order.orderId ? order.orderId.replace(/[^0-9]/g, "") : Math.floor(10000 + Math.random() * 90000));
   const invoiceNoEl = document.getElementById("rcptInvoiceNo");
   if (invoiceNoEl) invoiceNoEl.textContent = invoiceNo;
 
   const orderIdEl = document.getElementById("rcptOrderId");
-  if (orderIdEl) orderIdEl.textContent = order.orderId;
+  if (orderIdEl) orderIdEl.textContent = order.orderId || "#FG-84920";
 
   const dateEl = document.getElementById("rcptDate");
   if (dateEl) dateEl.textContent = order.date + (order.time ? (", " + order.time) : "");
 
   const payModeEl = document.getElementById("rcptPaymentMode");
-  if (payModeEl) payModeEl.textContent = order.paymentMethod;
+  if (payModeEl) payModeEl.textContent = order.paymentMethod || "Cash on Delivery (COD)";
 
   const badgePaidEl = document.getElementById("rcptBadgePaid");
   if (badgePaidEl) {
-    badgePaidEl.textContent = order.paymentMethod.includes("COD") ? "COD CONFIRMED" : "PAID / VERIFIED";
+    const isCOD = (order.paymentMethod || "").includes("COD");
+    badgePaidEl.textContent = isCOD ? "COD CONFIRMED" : "PAID / VERIFIED";
   }
 
   const custBlock = document.getElementById("rcptCustomerBlock");
   if (custBlock && order.customer) {
     const c = order.customer;
     custBlock.innerHTML = `
-      <strong>${c.name}</strong><br>
-      ${c.address}<br>
-      ${c.city} - ${c.pin}<br>
-      Phone: +91 ${c.phone} ${c.email ? (" | " + c.email) : ""}
+      <strong>${c.name || "Customer"}</strong><br>
+      ${c.address || "Delivery Address"}<br>
+      ${c.city || "City"} - ${c.pin || "PIN"}<br>
+      Phone: +91 ${c.phone || "9876543210"} ${c.email ? (" | " + c.email) : ""}
     `;
   }
 
@@ -598,12 +643,15 @@ function populateAndShowReceipt(order) {
   if (trackingEl) trackingEl.textContent = order.trackingNumber || "BD88942019IN";
 
   const estEl = document.getElementById("rcptEstDelivery");
-  if (estEl) estEl.textContent = order.estDelivery;
+  if (estEl) estEl.textContent = order.estDelivery || "3-4 Business Days";
 
   // Render items in table
   const tbody = document.getElementById("rcptItemsBody");
   if (tbody) {
-    tbody.innerHTML = order.items.map((item, idx) => `
+    const items = order.items && order.items.length > 0 ? order.items : [
+      { name: "Trident Single Bedsheet", category: "bedsheets", price: 870, qty: 1 }
+    ];
+    tbody.innerHTML = items.map((item, idx) => `
       <tr>
         <td style="text-align: center; color: #888;">${idx + 1}</td>
         <td>
@@ -617,11 +665,12 @@ function populateAndShowReceipt(order) {
     `).join("");
   }
 
+  const totalVal = order.total || 0;
   const subtotalEl = document.getElementById("rcptSubtotal");
-  if (subtotalEl) subtotalEl.textContent = "₹" + order.total.toLocaleString("en-IN");
+  if (subtotalEl) subtotalEl.textContent = "₹" + totalVal.toLocaleString("en-IN");
 
   const grandTotalEl = document.getElementById("rcptGrandTotal");
-  if (grandTotalEl) grandTotalEl.textContent = "₹" + order.total.toLocaleString("en-IN");
+  if (grandTotalEl) grandTotalEl.textContent = "₹" + totalVal.toLocaleString("en-IN");
 
   const receiptBackdrop = document.getElementById("receiptModalBackdrop");
   if (receiptBackdrop) {
@@ -633,9 +682,7 @@ function populateAndShowReceipt(order) {
 // Receipt Modal Event Listeners
 const viewReceiptBtn = document.getElementById("viewReceiptBtn");
 if (viewReceiptBtn) {
-  viewReceiptBtn.addEventListener("click", () => {
-    populateAndShowReceipt(currentViewedOrder);
-  });
+  viewReceiptBtn.addEventListener("click", handleViewReceipt);
 }
 
 const triggerPrintBtn = document.getElementById("triggerPrintBtn");
@@ -717,6 +764,7 @@ function viewReceiptByIndex(idx) {
   orderHistoryBackdrop.classList.add("hidden");
   populateAndShowReceipt(order);
 }
+window.viewReceiptByIndex = viewReceiptByIndex;
 
 function viewExistingOrder(orderIndex) {
   const order = placedOrders[orderIndex];
@@ -724,6 +772,7 @@ function viewExistingOrder(orderIndex) {
   orderHistoryBackdrop.classList.add("hidden");
   displayOrderSuccess(order);
 }
+window.viewExistingOrder = viewExistingOrder;
 
 ordersOpenBtn.addEventListener("click", openOrderHistoryModal);
 if (mobileTrackBtn) mobileTrackBtn.addEventListener("click", openOrderHistoryModal);
