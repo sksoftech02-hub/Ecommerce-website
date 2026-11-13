@@ -303,7 +303,7 @@
     </div>
     <div class="footer-bottom">
       <span>© <span id="year"></span> FurnishGo Retail · Prototype Store Experience</span>
-      <span>Engineered with Pure HTML, Modern CSS & JavaScript</span>
+      <span>Developed by SK Softech for demo purpose</span>
     </div>
   </footer>
 
@@ -628,12 +628,152 @@
 
       <!-- Action Buttons -->
       <div class="success-actions">
-        <button class="btn btn-secondary" onclick="window.print()">
-          🖨️ Print Order Receipt
+        <button class="btn btn-secondary" id="viewReceiptBtn">
+          📄 View / Print Official Receipt
         </button>
         <button class="btn btn-primary" id="continueShoppingBtn">
           Continue Shopping →
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       DEDICATED 1-PAGE TAX INVOICE & ORDER RECEIPT MODAL
+       ========================================================================= -->
+  <div class="modal-backdrop hidden" id="receiptModalBackdrop">
+    <div class="receipt-modal-container">
+      <div class="receipt-modal-controls no-print">
+        <div class="receipt-modal-title">
+          <span>📄 Official Order Invoice Preview</span>
+          <small>Formally formatted for 1-Page A4 Printing & Records</small>
+        </div>
+        <div class="receipt-action-group">
+          <button class="btn btn-primary btn-print" id="triggerPrintBtn">
+            🖨️ Print / Save as PDF
+          </button>
+          <button class="btn btn-secondary" id="closeReceiptModal">✕ Close</button>
+        </div>
+      </div>
+
+      <!-- Single Page Printable Document -->
+      <div class="printable-receipt" id="printableReceipt">
+        <!-- Receipt Header -->
+        <div class="rcpt-header">
+          <div class="rcpt-brand">
+            <div class="rcpt-logo">FG</div>
+            <div>
+              <h2>FurnishGo Retail Pvt. Ltd.</h2>
+              <p>Home Comfort & Luxury Linens · Fulfillment Hub 04</p>
+              <p class="rcpt-small-text">Whitefield Tech Zone, Bengaluru, KA - 560066 | GSTIN: 29AABCF9281F1Z2</p>
+            </div>
+          </div>
+          <div class="rcpt-invoice-tag">
+            <h3>TAX INVOICE</h3>
+            <span class="rcpt-badge-paid" id="rcptBadgePaid">PAID / CONFIRMED</span>
+          </div>
+        </div>
+
+        <div class="rcpt-divider"></div>
+
+        <!-- Meta info grid -->
+        <div class="rcpt-meta-grid">
+          <div>
+            <span class="rcpt-label">Invoice Number:</span>
+            <strong id="rcptInvoiceNo">INV-2026-9281</strong>
+          </div>
+          <div>
+            <span class="rcpt-label">Order Reference:</span>
+            <strong id="rcptOrderId">#FG-84920</strong>
+          </div>
+          <div>
+            <span class="rcpt-label">Date & Time:</span>
+            <strong id="rcptDate">13 Nov 2026, 04:30 PM</strong>
+          </div>
+          <div>
+            <span class="rcpt-label">Payment Method:</span>
+            <strong id="rcptPaymentMode">Cash on Delivery</strong>
+          </div>
+        </div>
+
+        <!-- Addresses Grid -->
+        <div class="rcpt-address-grid">
+          <div class="rcpt-address-box">
+            <h4>Billed & Shipped To:</h4>
+            <div id="rcptCustomerBlock" class="rcpt-address-content">
+              <strong>Rahul Sharma</strong><br>
+              Flat 402, Green Valley Apartments<br>
+              Mumbai, Maharashtra - 400050<br>
+              Phone: +91 9876543210
+            </div>
+          </div>
+          <div class="rcpt-address-box">
+            <h4>Dispatch & Fulfillment Details:</h4>
+            <div class="rcpt-address-content">
+              <strong>FurnishGo Central Warehouse</strong><br>
+              Courier Partner: <span id="rcptCourier" class="highlight-text">BlueDart Express</span><br>
+              Tracking AWB: <strong id="rcptTrackingNo">BD88942019IN</strong><br>
+              Est. Delivery: <span id="rcptEstDelivery">17 Nov 2026</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Items Table -->
+        <table class="rcpt-table">
+          <thead>
+            <tr>
+              <th style="width: 45px;">#</th>
+              <th>Item Description</th>
+              <th style="width: 110px;">Category</th>
+              <th style="width: 60px; text-align: center;">Qty</th>
+              <th style="width: 100px; text-align: right;">Rate (₹)</th>
+              <th style="width: 110px; text-align: right;">Amount (₹)</th>
+            </tr>
+          </thead>
+          <tbody id="rcptItemsBody">
+            <!-- Dynamic rows -->
+          </tbody>
+        </table>
+
+        <!-- Totals & Calculations -->
+        <div class="rcpt-totals-wrap">
+          <div class="rcpt-notes">
+            <strong>Terms & Declarations:</strong>
+            <p>1. This is a computer-generated demonstration invoice for FurnishGo Retail demo orders.</p>
+            <p>2. Eligible for 7-day hassle-free replacement on unused items with original packaging.</p>
+            <p class="rcpt-dev-credit">Developed by SK Softech for demo purpose</p>
+          </div>
+
+          <div class="rcpt-calculation-box">
+            <div class="rcpt-calc-row">
+              <span>Items Subtotal:</span>
+              <span id="rcptSubtotal">₹0</span>
+            </div>
+            <div class="rcpt-calc-row">
+              <span>Delivery & Handling:</span>
+              <span class="text-free">FREE</span>
+            </div>
+            <div class="rcpt-calc-row">
+              <span>Taxes (GST Included):</span>
+              <span>₹0</span>
+            </div>
+            <div class="rcpt-calc-row grand-total">
+              <strong>Total Amount:</strong>
+              <strong id="rcptGrandTotal">₹0</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Receipt Signoff -->
+        <div class="rcpt-signoff">
+          <div>
+            <span>Authorized Signature</span>
+            <div class="rcpt-sign-line">FurnishGo Retail Fulfillment</div>
+          </div>
+          <div class="rcpt-stamp">
+            <span>OFFICIAL DEMO INVOICE</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

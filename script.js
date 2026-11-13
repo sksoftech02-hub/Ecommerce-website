@@ -78,6 +78,7 @@ let currentFilter = "all";
 let cart = [];
 let placedOrders = [];
 let pendingShippingData = null;
+let currentViewedOrder = null;
 
 // Initialize Storage
 try {
@@ -341,6 +342,8 @@ function closeAllModals() {
   checkoutModalBackdrop.classList.add("hidden");
   orderSuccessBackdrop.classList.add("hidden");
   orderHistoryBackdrop.classList.add("hidden");
+  const receiptBackdrop = document.getElementById("receiptModalBackdrop");
+  if (receiptBackdrop) receiptBackdrop.classList.add("hidden");
   document.body.style.overflow = "";
 }
 
@@ -522,6 +525,8 @@ confirmPlaceOrderBtn.addEventListener("click", () => {
 
 // 9. Display Order Success & Live Delivery Tracking
 function displayOrderSuccess(order) {
+  currentViewedOrder = order;
+
   document.getElementById("dispOrderId").textContent = order.orderId;
   document.getElementById("dispOrderDate").textContent = order.date + " · " + order.time;
   document.getElementById("dispPaymentMode").textContent = order.paymentMethod;
@@ -550,6 +555,107 @@ function displayOrderSuccess(order) {
 
   orderSuccessBackdrop.classList.remove("hidden");
   document.body.style.overflow = "hidden";
+}
+
+// 9b. Dedicated Official 1-Page Tax Invoice & Receipt
+function populateAndShowReceipt(order) {
+  if (!order) return;
+  currentViewedOrder = order;
+
+  const invoiceNo = "INV-2026-" + order.orderId.replace(/[^0-9]/g, "");
+  const invoiceNoEl = document.getElementById("rcptInvoiceNo");
+  if (invoiceNoEl) invoiceNoEl.textContent = invoiceNo;
+
+  const orderIdEl = document.getElementById("rcptOrderId");
+  if (orderIdEl) orderIdEl.textContent = order.orderId;
+
+  const dateEl = document.getElementById("rcptDate");
+  if (dateEl) dateEl.textContent = order.date + (order.time ? (", " + order.time) : "");
+
+  const payModeEl = document.getElementById("rcptPaymentMode");
+  if (payModeEl) payModeEl.textContent = order.paymentMethod;
+
+  const badgePaidEl = document.getElementById("rcptBadgePaid");
+  if (badgePaidEl) {
+    badgePaidEl.textContent = order.paymentMethod.includes("COD") ? "COD CONFIRMED" : "PAID / VERIFIED";
+  }
+
+  const custBlock = document.getElementById("rcptCustomerBlock");
+  if (custBlock && order.customer) {
+    const c = order.customer;
+    custBlock.innerHTML = `
+      <strong>${c.name}</strong><br>
+      ${c.address}<br>
+      ${c.city} - ${c.pin}<br>
+      Phone: +91 ${c.phone} ${c.email ? (" | " + c.email) : ""}
+    `;
+  }
+
+  const courierEl = document.getElementById("rcptCourier");
+  if (courierEl) courierEl.textContent = order.courier || "BlueDart Express";
+
+  const trackingEl = document.getElementById("rcptTrackingNo");
+  if (trackingEl) trackingEl.textContent = order.trackingNumber || "BD88942019IN";
+
+  const estEl = document.getElementById("rcptEstDelivery");
+  if (estEl) estEl.textContent = order.estDelivery;
+
+  // Render items in table
+  const tbody = document.getElementById("rcptItemsBody");
+  if (tbody) {
+    tbody.innerHTML = order.items.map((item, idx) => `
+      <tr>
+        <td style="text-align: center; color: #888;">${idx + 1}</td>
+        <td>
+          <strong>${item.name}</strong>
+        </td>
+        <td style="text-transform: capitalize; color: #555;">${item.category || "Home Decor"}</td>
+        <td style="text-align: center; font-weight: 600;">${item.qty}</td>
+        <td style="text-align: right;">₹${item.price.toLocaleString("en-IN")}</td>
+        <td style="text-align: right; font-weight: 700; color: #1f372b;">₹${(item.price * item.qty).toLocaleString("en-IN")}</td>
+      </tr>
+    `).join("");
+  }
+
+  const subtotalEl = document.getElementById("rcptSubtotal");
+  if (subtotalEl) subtotalEl.textContent = "₹" + order.total.toLocaleString("en-IN");
+
+  const grandTotalEl = document.getElementById("rcptGrandTotal");
+  if (grandTotalEl) grandTotalEl.textContent = "₹" + order.total.toLocaleString("en-IN");
+
+  const receiptBackdrop = document.getElementById("receiptModalBackdrop");
+  if (receiptBackdrop) {
+    receiptBackdrop.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  }
+}
+
+// Receipt Modal Event Listeners
+const viewReceiptBtn = document.getElementById("viewReceiptBtn");
+if (viewReceiptBtn) {
+  viewReceiptBtn.addEventListener("click", () => {
+    populateAndShowReceipt(currentViewedOrder);
+  });
+}
+
+const triggerPrintBtn = document.getElementById("triggerPrintBtn");
+if (triggerPrintBtn) {
+  triggerPrintBtn.addEventListener("click", () => {
+    window.print();
+  });
+}
+
+const closeReceiptModal = document.getElementById("closeReceiptModal");
+if (closeReceiptModal) {
+  closeReceiptModal.addEventListener("click", () => {
+    const receiptBackdrop = document.getElementById("receiptModalBackdrop");
+    if (receiptBackdrop) receiptBackdrop.classList.add("hidden");
+    if (!orderSuccessBackdrop.classList.contains("hidden")) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  });
 }
 
 continueShoppingBtn.addEventListener("click", () => {
@@ -592,7 +698,10 @@ function openOrderHistoryModal() {
         </div>
         <div class="history-footer">
           <div>Estimated Delivery: <strong>${order.estDelivery}</strong> · Total: <strong>₹${order.total.toLocaleString("en-IN")}</strong></div>
-          <button class="btn-track-now" onclick="viewExistingOrder(${idx})">Track Delivery →</button>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-track-now" style="background:#5e6d64;" onclick="viewReceiptByIndex(${idx})">Invoice 📄</button>
+            <button class="btn-track-now" onclick="viewExistingOrder(${idx})">Track Delivery →</button>
+          </div>
         </div>
       </div>
     `).join("");
@@ -600,6 +709,13 @@ function openOrderHistoryModal() {
 
   orderHistoryBackdrop.classList.remove("hidden");
   document.body.style.overflow = "hidden";
+}
+
+function viewReceiptByIndex(idx) {
+  const order = placedOrders[idx];
+  if (!order) return;
+  orderHistoryBackdrop.classList.add("hidden");
+  populateAndShowReceipt(order);
 }
 
 function viewExistingOrder(orderIndex) {
