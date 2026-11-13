@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FurnishGo Retail · Premium Home Essentials (Demo Store)</title>
+  
+  <!-- Meta & Social Sharing Preview -->
+  <meta name="description" content="FurnishGo Retail - Explore premium bedsheets, comforters, towels, and home essentials. Interactive demo catalogue with direct WhatsApp ordering.">
+  <meta property="og:title" content="FurnishGo Retail · Home Comfort Essentials">
+  <meta property="og:description" content="Discover premium bedding, cozy comforters, and plush towels for your dream home. Check out our demo collection.">
+  <meta property="og:image" content="./assets/trident-bedsheet.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts for Luxury Editorial Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Announcement & Demo Store Banner -->
+  <div class="demo-banner">
+    <div class="demo-pill">⚠️ DEMO STORE</div>
+    <span>This is a prototype demonstration catalogue. Real orders are confirmed via WhatsApp inquiry.</span>
+  </div>
+
+  <div class="top-bar">
+    <span>✨ Free delivery on eligible orders · COD & Online UPI options available</span>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header>
+    <div class="header-container">
+      <a class="logo" href="#home">
+        <span class="logo-mark">FG</span>
+        <div class="logo-text">
+          FurnishGo
+          <span class="logo-sub">RETAIL <span class="badge-demo">DEMO</span></span>
+        </div>
+      </a>
+
+      <nav class="desktop-nav" id="desktopNav">
+        <a href="#home">Home</a>
+        <a href="#categories">Categories</a>
+        <a href="#shop">Shop Collection</a>
+        <a href="#delivery">Delivery & Payments</a>
+        <a href="#about">About</a>
+      </nav>
+
+      <div class="header-actions">
+        <button id="cart-open" class="cart-btn" aria-label="Open Shopping Bag">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="cart-text">Bag</span>
+          <span class="cart-badge" id="count">0</span>
+        </button>
+
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" class="mobile-link">Home</a>
+    <a href="#categories" class="mobile-link">Categories</a>
+    <a href="#shop" class="mobile-link">Shop Collection</a>
+    <a href="#delivery" class="mobile-link">Delivery & Payments</a>
+    <a href="#about" class="mobile-link">About FurnishGo</a>
+    <div class="mobile-demo-tag">Prototype Store for FurnishGo Retail</div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="hero-tag">THE ART OF FEELING AT HOME</div>
+      <h1>Comfort that turns <br><i>a house into a home.</i></h1>
+      <p>Carefully curated everyday essentials for softer mornings, calmer evenings, and relaxed living spaces.</p>
+      
+      <div class="hero-cta-group">
+        <a class="btn btn-primary" href="#shop">Explore Collection ↓</a>
+        <a class="btn btn-secondary" href="https://wa.me/918958407464?text=Hi%20FurnishGo!%20I'm%20browsing%20your%20demo%20catalogue." target="_blank" rel="noopener">
+          Chat on WhatsApp
+        </a>
+      </div>
+      
+      <div class="hero-guarantee">
+        <span>✓ 100% Premium Fabrics</span>
+        <span>✓ Direct WhatsApp Confirmation</span>
+        <span>✓ Doorstep Dispatch</span>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-img-wrap">
+        <img src="assets/trident-comforter.jpg" alt="FurnishGo Premium Bedroom Essentials" onerror="this.src='./trident-comforter.jpg'">
+        <div class="hero-card-floating">
+          <small>Curated Pick</small>
+          <strong>All-Season Comfort</strong>
+          <span>Starting from ₹870</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brand Highlights Banner -->
+  <section class="trust-strip">
+    <div class="trust-item">
+      <div class="trust-icon">✦</div>
+      <div>
+        <strong>Curated Home Essentials</strong>
+        <p>Premium cottons & ultra-soft microfiber</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🚚</div>
+      <div>
+        <strong>Convenient Delivery</strong>
+        <p>Doorstep delivery across eligible PIN codes</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">💬</div>
+      <div>
+        <strong>Direct WhatsApp Assist</strong>
+        <p>Instant answers & personalized advice</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🛡️</div>
+      <div>
+        <strong>Safe Payment Choice</strong>
+        <p>Cash on Delivery or Verified UPI</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="section categories-section" id="categories">
+    <div class="section-header">
+      <span class="sub-heading">SHOP BY CATEGORY</span>
+      <h2>Find Your Perfect Comfort</h2>
+      <p>Select a category to view matched luxury home essentials.</p>
+    </div>
+
+    <div class="category-grid">
+      <div class="cat-card" data-cat="bedsheets">
+        <div class="cat-bg" style="background-image: url('assets/trident-bedsheet.jpg');"></div>
+        <div class="cat-info">
+          <h3>Bedsheets</h3>
+          <span>Pure Cotton & Sateen</span>
+          <button class="cat-action">View Bedsheets →</button>
+        </div>
+      </div>
+
+      <div class="cat-card" data-cat="comforters">
+        <div class="cat-bg" style="background-image: url('assets/miraaj-comforter.jpg');"></div>
+        <div class="cat-info">
+          <h3>Comforters & Sets</h3>
+          <span>Plush All-Season Warmth</span>
+          <button class="cat-action">View Comforters →</button>
+        </div>
+      </div>
+
+      <div class="cat-card" data-cat="towels">
+        <div class="cat-bg" style="background-image: url('assets/trident-towels.jpg');"></div>
+        <div class="cat-info">
+          <h3>Towels</h3>
+          <span>Super Absorbent Plush Cotton</span>
+          <button class="cat-action">View Towels →</button>
+        </div>
+      </div>
+
+      <div class="cat-card" data-cat="living">
+        <div class="cat-bg" style="background-image: url('assets/cotton-cushion-covers.jpg');"></div>
+        <div class="cat-info">
+          <h3>Living & Decor</h3>
+          <span>Cushions, Throws & More</span>
+          <button class="cat-action">View Living →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Shop Collection -->
+  <section class="section shop-section" id="shop">
+    <div class="section-header">
+      <span class="sub-heading">THE FURNISHGO EDIT</span>
+      <h2>Featured Product Catalogue</h2>
+      <p>High-resolution lookbook with instant WhatsApp ordering.</p>
+    </div>
+
+    <!-- Filter & Search Controls -->
+    <div class="shop-controls">
+      <div class="filter-pills" id="filterPills">
+        <button class="filter-pill active" data-filter="all">All Products</button>
+        <button class="filter-pill" data-filter="bedsheets">Bedsheets</button>
+        <button class="filter-pill" data-filter="comforters">Comforters</button>
+        <button class="filter-pill" data-filter="towels">Towels</button>
+        <button class="filter-pill" data-filter="living">Living & Decor</button>
+      </div>
+
+      <div class="search-box">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="search" placeholder="Search by name, fabric, style..." aria-label="Search products">
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid" id="products"></div>
+
+    <!-- Empty Search State -->
+    <div id="noResults" class="no-results hidden">
+      <p>No products matched your search or category filter.</p>
+      <button class="btn btn-secondary" id="resetFilterBtn">Reset Filters</button>
+    </div>
+  </section>
+
+  <!-- Delivery & Confidence Section -->
+  <section class="section delivery-section" id="delivery">
+    <div class="delivery-banner">
+      <div class="delivery-text">
+        <span class="sub-heading">EASY ORDERING & DISPATCH</span>
+        <h2>Your Home. Your Choice.<br><i>Your Way to Pay.</i></h2>
+        <p>Browse our catalog, place your desired items in the shopping bag, and checkout via WhatsApp. Our team immediately reviews your order, verifies local PIN code delivery, and shares secure payment options.</p>
+      </div>
+
+      <div class="service-cards">
+        <article class="service-card">
+          <div class="service-num">01</div>
+          <h3>Doorstep Delivery</h3>
+          <p>We deliver across India with reliable courier partners. Provide your PIN code during enquiry to verify estimated delivery time.</p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-num">02</div>
+          <h3>Cash on Delivery</h3>
+          <p>COD is supported for eligible serviceable locations and standard orders. Our team will verify COD eligibility when you enquire.</p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-num">03</div>
+          <h3>Instant UPI & Cards</h3>
+          <p>Prefer online payment? Receive official verified UPI IDs and secure digital payment links directly upon order confirmation.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- About & Demo Disclaimer Section -->
+  <section class="section about-section" id="about">
+    <div class="about-card">
+      <div class="about-badge">DEMONSTRATION WEBSITE</div>
+      <h2>About FurnishGo Retail Demo</h2>
+      <p>This store is an interactive web demo designed to showcase a modern, mobile-friendly catalogue experience with WhatsApp-based order conversion. No payment gateway charges or credit card forms are requested directly on this site.</p>
+      <div class="demo-features-list">
+        <span>✓ Instant product browsing & search</span>
+        <span>✓ Real-time bag calculation & item quantity management</span>
+        <span>✓ Automated WhatsApp message creation with order ticket</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social & Direct Support Strip -->
+  <section class="social-strip">
+    <div class="social-content">
+      <span class="sub-heading">HAVE A QUESTION?</span>
+      <h2>Let's Connect on WhatsApp</h2>
+      <p>Looking for custom dimensions, bulk gifting orders, or fabric swatches? Our team is just a tap away.</p>
+    </div>
+    <div class="social-buttons">
+      <a class="social-btn whatsapp-social" href="https://wa.me/918958407464" target="_blank" rel="noopener">
+        <span>Chat with Team: +91 8958407464</span>
+      </a>
+      <a class="social-btn" href="https://instagram.com" target="_blank" rel="noopener">
+        <span>Instagram</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">FG <span>FurnishGo Retail</span></div>
+        <p>Premium bedding, cozy comforters, and everyday luxury for happier homes.</p>
+      </div>
+      <div class="footer-note">
+        <strong>Demo Website Disclaimer</strong>
+        <p>Created for demonstration & portfolio showcase purposes. All product names, trademarks, and photos belong to their respective owners.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> FurnishGo Retail · Demo Store Experience</span>
+      <span>Designed with Pure HTML, CSS & JavaScript</span>
+    </div>
+  </footer>
+
+  <!-- Slide-out Shopping Bag Drawer -->
+  <div class="drawer-shade" id="shade"></div>
+  <aside class="cart-drawer" id="drawer" aria-label="Shopping Bag">
+    <div class="drawer-header">
+      <div>
+        <h3>Your Shopping Bag</h3>
+        <span class="demo-tag-mini">DEMO CATALOGUE CHECKOUT</span>
+      </div>
+      <button class="drawer-close" id="close" aria-label="Close cart">✕</button>
+    </div>
+
+    <!-- Cart Items List -->
+    <div class="drawer-items" id="items">
+      <div class="empty-cart-msg">Your bag is currently empty.</div>
+    </div>
+
+    <!-- Drawer Checkout Form -->
+    <div class="drawer-footer">
+      <div class="cart-summary-row">
+        <span>Estimated Subtotal:</span>
+        <strong id="total">₹0</strong>
+      </div>
+
+      <div class="checkout-form" id="checkoutForm">
+        <h4>Delivery & Order Details</h4>
+        
+        <div class="form-group">
+          <label for="custName">Your Full Name *</label>
+          <input type="text" id="custName" placeholder="e.g. Rahul Sharma" required>
+        </div>
+
+        <div class="form-group">
+          <label for="custAddress">Delivery Address *</label>
+          <input type="text" id="custAddress" placeholder="Flat / House No, Street, City" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pin">PIN Code *</label>
+            <input type="text" id="pin" placeholder="e.g. 110001" maxlength="6">
+          </div>
+          <div class="form-group">
+            <label for="delivery-choice">Delivery Type</label>
+            <select id="delivery-choice">
+              <option value="Home delivery">Home Delivery</option>
+              <option value="Self pickup">Self Pickup</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="payment">Preferred Payment Method</label>
+          <select id="payment">
+            <option value="Cash on Delivery (COD)">Cash on Delivery (if available for PIN)</option>
+            <option value="UPI / Online Payment">Online Payment / UPI (Instant Transfer)</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary checkout-btn" id="checkout">
+          <span>Send Order on WhatsApp →</span>
+        </button>
+
+        <p class="drawer-disclaimer">
+          🔒 <strong>Demo Store:</strong> No money is charged on this website. Clicking the button opens WhatsApp with your itemized summary for confirmation.
+        </p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Floating WhatsApp Action Button -->
+  <a class="floating-wa" href="https://wa.me/918958407464" target="_blank" rel="noopener" aria-label="WhatsApp Support">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm.01 16.59c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.13 8.13 0 0 1-1.25-4.82c0-4.52 3.68-8.2 8.2-8.2 2.19 0 4.25.85 5.8 2.4 1.55 1.55 2.41 3.61 2.41 5.8 0 4.52-3.68 8.2-8.17 8.28zm4.49-6.17c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.43 1.03 2.6c.12.17 1.77 2.7 4.28 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.23-.17-.48-.29z"/>
+    </svg>
+    <span class="floating-tooltip">Chat with us</span>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
